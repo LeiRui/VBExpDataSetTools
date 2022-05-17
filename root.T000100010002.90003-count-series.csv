@@ -1,3 +1,4 @@
+count(seriesPath), count result
 count(root.T000100010002.90003.struct@now%106007), 0
 count(root.T000100010002.90003.struct@now%104006), 0
 count(root.T000100010002.90003.RunTime4), 0
