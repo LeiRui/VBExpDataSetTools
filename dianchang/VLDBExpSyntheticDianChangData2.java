@@ -12,9 +12,16 @@ import java.util.Random;
 public class VLDBExpSyntheticDianChangData2 {
 
   public static void main(String[] args) throws IOException {
-    String out = "root.DianChang.d%s.csv";
-    int deviceNum = 300;
-    int sensorNum = 30000;
+    String device = "root.DianChang.d%s";
+    String out = device + ".csv";
+    String out_data_type = "dianchang_data_type.csv"; // as TYPE_INFO_FILE
+    PrintWriter writer_dataType = new PrintWriter(new FileOutputStream(new File(out_data_type)));
+    writer_dataType.println("timeseries,dataType");
+
+//    int deviceNum = 300;
+//    int sensorNum = 30000;
+    int deviceNum = 2;
+    int sensorNum = 1000;
     long timestamp_ms = 1577836800000L; // January 1, 2020 0:00:00 ms
     int step_ms = 1000; // 时间间隔：1秒
     int L = 8640; // 每个序列点数
@@ -24,20 +31,27 @@ public class VLDBExpSyntheticDianChangData2 {
       sensorHeader.append(",sensor" + i);
     }
     String header = sensorHeader.toString();
+
     for (int d = 1; d < deviceNum + 1; d++) {
       PrintWriter writer = new PrintWriter(new FileOutputStream(new File(String.format(out, d))));
       writer.println(header);
       float min = 0f;
       float max = 100f;
+
       for (int i = 1; i < L + 1; i++) {
         sensorHeader = new StringBuilder();
         timestamp_ms += step_ms;
         sensorHeader.append(timestamp_ms);
+
         for (int j = 0; j < sensorNum; j++) {
           // 随机float
           float v = min + new Random().nextFloat() * (max - min);
           sensorHeader.append(",");
           sensorHeader.append(v);
+
+          if (i == 1) {
+            writer_dataType.println(String.format(device, d) + ".sensor" + j + "," + "FLOAT");
+          }
         }
         writer.println(sensorHeader.toString());
 //        if (i % 10000 == 0) {
@@ -47,5 +61,6 @@ public class VLDBExpSyntheticDianChangData2 {
       writer.close();
       System.out.println("finish write device " + d);
     }
+    writer_dataType.close();
   }
 }
