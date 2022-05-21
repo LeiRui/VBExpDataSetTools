@@ -9,7 +9,7 @@ import java.util.Random;
  * <p>
  * 300 设备 * 3万测点=900万序列 时间间隔：1秒 每个序列点数： 8640（0.1天） 数据类型：Float。
  */
-public class VLDBExpSyntheticDianChangData2 {
+public class VLDBExpSyntheticDianChangData {
 
   public static void main(String[] args) throws IOException {
     String device = "root.DianChang.d%s";
@@ -17,11 +17,9 @@ public class VLDBExpSyntheticDianChangData2 {
     String out_data_type = "dianchang_data_type.csv"; // as TYPE_INFO_FILE
     PrintWriter writer_dataType = new PrintWriter(new FileOutputStream(new File(out_data_type)));
     writer_dataType.println("timeseries,dataType");
-
-//    int deviceNum = 300;
-//    int sensorNum = 30000;
-    int deviceNum = 2;
-    int sensorNum = 1000;
+    
+    int deviceNum = 300;
+    int sensorNum = 30000;
     long timestamp_ms = 1577836800000L; // January 1, 2020 0:00:00 ms
     int step_ms = 1000; // 时间间隔：1秒
     int L = 8640; // 每个序列点数
@@ -43,7 +41,7 @@ public class VLDBExpSyntheticDianChangData2 {
         timestamp_ms += step_ms;
         sensorHeader.append(timestamp_ms);
 
-        for (int j = 0; j < sensorNum; j++) {
+        for (int j = 1; j < sensorNum + 1; j++) {
           // 随机float
           float v = min + new Random().nextFloat() * (max - min);
           sensorHeader.append(",");
