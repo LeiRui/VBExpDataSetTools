@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * 1 设备 * 3万测点=3万序列 时间间隔：1秒 每个序列点数： 2592000（30天） 数据类型：Float
  */
-public class VLDBExpSyntheticDianChangData {
+public class VLDBExpSyntheticDianChangData_deprecated {
 
   public static void main(String[] args) throws IOException {
     String out = "DianChang_d1.csv";
